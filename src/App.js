@@ -2,9 +2,9 @@ import React, { Suspense } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Components
-import Carousel from './Components/Carousel';
+import Home from './Views/Home';
 import Header from './Components/Header';
-import CardItem from './Components/CardItem';
+
 import LoaderPage from './Components/Loader/LoaderPage';
 
 //Bootstrap 
@@ -23,16 +23,18 @@ function App() {
         <Header/>
         <Switch>
           <Route path="/" exact>
-            <Suspense fallback={<LoaderPage />}>
-              <Carousel />
-              <h1>Productos destacados</h1>
+            <Suspense delayMs={500} fallback={<LoaderPage />}>
+              <Home />
+              
               
             </Suspense>
           </Route>
           <Route path="/carta">
-            <div className="carta">
-              <h1>Carta</h1>
-            </div>
+            <Suspense delayMs={500} fallback={<LoaderPage />}>
+              <div className="carta">
+                <h1>Carta</h1>
+              </div>
+            </Suspense>
           </Route>
           <Route path="*">
             <h1>404 Not Found</h1>
