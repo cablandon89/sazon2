@@ -1,22 +1,27 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
+//Bootstrap
 import {Card, Button} from 'react-bootstrap';
-
+//Context
+import StoreContext from  '../Context/Store';
 //css
 import "./CardItemStyles.css";
 
-const CardItem = ({key}) => {
+const CardItem = ({key, id, name, amount, img, stock}) => {
+  //State local
   const [valueAdd, setValueAdd] = useState(1);
-
+  //Context 
+  const {store} = useContext(StoreContext);
+  //Función restar item
   const restar = () => {
     if(valueAdd > 1){
       setValueAdd(valueAdd -1)         
     } 
   }
-  
+  //Función para sumar y llega al tope del stock del producto
   const sumar = () => {
-    setValueAdd(valueAdd +1)         
-    /* if(valueAdd < product.stock){
-    }  */
+    if(valueAdd < stock){
+      setValueAdd(valueAdd +1)         
+    } 
   }
   
   const isInCart = (id) => {
@@ -55,10 +60,10 @@ const CardItem = ({key}) => {
   return (
     <>
       <Card key={key} style={{ width: "18rem", marginRight: 10 }} className="mt-3 text-center">
-        <Card.Img variant="top" src="https://via.placeholder.com/200" alt="Foto del producto" />
+        <Card.Img variant="top" src={'/assets/img/'+id+'.jpg'} alt="Foto del producto" />
         <Card.Body>
-          <Card.Title>Nombre del producto</Card.Title>
-          <Card.Text> Precio del producto </Card.Text>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text> $ {amount} </Card.Text>
           <div className="agregar">
             <i className="icon-minus" onClick={restar}/>
             <input type="text" value={valueAdd} readOnly/>

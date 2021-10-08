@@ -28,12 +28,22 @@ const Header = () => {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to="/carrito" className="link">
-                Carrito
+              <Link to="/carrito" className="link position-relative">
+                {/* { store.total > 0 && ( */}
+                  <span className="position-absolute top-5 start-100 p-2 translate-middle badge rounded-pill bg-primary">
+                    <span className="visually-hidden">unread messages</span>
+                  </span>
+                {/* )} */}
+              <i className="icon-basket "/>
               </Link>
             </Nav.Link>
-            {/* <Nav.Link>Items: {store.cantidades.reduce(sumatoria)}</Nav.Link> */}
-            <Nav.Link>Total: {store.total}</Nav.Link>
+
+            { store.total > 0 && (
+              <>
+                <Nav.Link>Items: {store.cantidades.reduce(sumatoria)}</Nav.Link>
+                <Nav.Link>Total: {store.total}</Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
