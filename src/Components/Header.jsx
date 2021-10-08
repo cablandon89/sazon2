@@ -1,25 +1,39 @@
-import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap';
+import {useContext} from 'react'
+import { Link } from "react-router-dom";
+
+import StoreContext from  '../Context/Store';
+
+//Bootstrap
+import {Navbar, Nav, Container} from 'react-bootstrap';
+
 
 const Header = () => {
+  const sumatoria = (a,b)=>a+b;
+  const {store} = useContext(StoreContext);
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" expand="md">
       <Container>
-        <Navbar.Brand href="#home">
-          <i className="icon-food"/>
-          Sazón cafetero
+        <Navbar.Brand>
+          <Link to="/" className="link">
+            <i className="icon-food"/>
+            Sazón cafetero
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link >
+              <Link to="/carta" className="link">
+                Carta
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/carrito" className="link">
+                Carrito
+              </Link>
+            </Nav.Link>
+            {/* <Nav.Link>Items: {store.cantidades.reduce(sumatoria)}</Nav.Link> */}
+            <Nav.Link>Total: {store.total}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
