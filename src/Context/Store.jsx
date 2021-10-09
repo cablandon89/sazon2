@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react'
+import React, {createContext, useState, useEffect} from 'react'
 
 const StoreContext = createContext();
  
@@ -28,8 +28,38 @@ const Store = ({children}) => {
       })
     }
   }
+
+  const updateItem = (product, index) => {
+    let nstore = [... store];
+    nstore[index] = product;
+    setStore(nstore);
+  }
+
+  const removeItem = (index) => {
+    let nstore = [... store];
+    nstore.splice(index,1);
+    setStore(nstore);
+  }
+
+  const emptyCart = () => {
+    setStore([]);
+  }
+
+  useEffect(() =>{
+    if(JSON.parse(localStorage.getItem('carrito'))){
+      setStore(JSON.parse(localStorage.getItem('carrito')))
+    }else{
+      setStore(localStorage.setItem("carrito",JSON.stringify([])))
+    }
+  },[]);
+
+  useEffect(() =>{
+    localStorage.setItem("carrito",JSON.stringify(store));
+  },[store])
+
   
-  const data= {store, addItem};
+  
+  const data= {store, addItem, updateItem, removeItem, emptyCart};
   return (
     <StoreContext.Provider value={data}>
       {children}

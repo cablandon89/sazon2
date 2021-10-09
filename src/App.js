@@ -6,7 +6,8 @@ import Home from './Views/Home';
 import Carta from './Views/Carta';
 import Detail from './Views/Detail';
 import Header from './Components/Header';
-import Cart from './Views/Cart';
+import Carrito from './Views/Cart';
+import Pagar from './Views/Checkout';
 
 import LoaderPage from './Components/Loader/LoaderPage';
 
@@ -40,9 +41,14 @@ function App() {
               <Detail/>
             </Suspense>
           </Route>
-          <Route path="/cart">
+          <Route path="/carrito">
             <Suspense delayMs={500} fallback={<LoaderPage />}>  
-              <Cart/>
+              <Carrito/>
+            </Suspense>
+          </Route>
+          <Route path="/pagar">
+            <Suspense delayMs={500} fallback={<LoaderPage />}>  
+              <Pagar/>
             </Suspense>
           </Route>
           <Route path="*">

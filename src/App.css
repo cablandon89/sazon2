@@ -20,3 +20,7 @@ h1, h2 {
 .link:hover {
   color:#ddd
 }
+
+.pe-pointer{
+  cursor: pointer
+}

@@ -27,8 +27,8 @@ const Header = () => {
             <Link to="/carta" className="nav-link link">
               Carta
             </Link>
-            <Link to="/cart" className="nav-link link position-relative">
-              { store.length && (
+            <Link to="/carrito" className="nav-link link position-relative">
+              { store.length > 0 && (
                 <span className="position-absolute top-5 start-100 p-2 translate-middle badge rounded-pill bg-primary">
                    <span className="visually-hidden">unread messages</span>
                 </span>
@@ -36,7 +36,7 @@ const Header = () => {
             <i className="icon-basket "/>
             </Link>
 
-            { store.length && (
+            { store.length  && (
               <>
                 <Nav.Link href="#">Items: {store.reduce((sum,value) => (sum + value.quantity),0)}</Nav.Link>
                 <Nav.Link href="#">Total: {formatCop.format(store.reduce((sum,value) => (sum + value.total),0))}</Nav.Link>
