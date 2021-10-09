@@ -1,16 +1,19 @@
 import { useState,useContext } from 'react';
+import { Link } from "react-router-dom";
 //Bootstrap
 import {Card, Button} from 'react-bootstrap';
+//Utiles
+import { formatCop } from '../Utiles/utiles';
 //Context
 import StoreContext from  '../Context/Store';
 //css
 import "./CardItemStyles.css";
 
-const CardItem = ({key, id, name, amount, img, stock}) => {
+const CardItem = ({id, name, amount, stock}) => {
   //State local
   const [valueAdd, setValueAdd] = useState(1);
   //Context 
-  const {store} = useContext(StoreContext);
+  const {addItem} = useContext(StoreContext);
   //Función restar item
   const restar = () => {
     if(valueAdd > 1){
@@ -24,52 +27,19 @@ const CardItem = ({key, id, name, amount, img, stock}) => {
     } 
   }
   
-  const isInCart = (id) => {
-    var index = -1;
-    /* for(var i = 0;i<data.id.length;i++){
-      if(data.id[i] == id){
-        index = i;
-      }
-    } */
-    return index;
-  }
-  
-  const addToCart = () => {
-    const id = 0;
-    if(isInCart(id) >= 0){
-       /* let cantidadesn = data.cantidades;
-       let totaln = data.total - (product.amount * data.cantidades[isInCart(id)]); 
-       cantidadesn[isInCart(id)] += valueAdd ;
-       totaln = totaln + (product.amount * cantidadesn[isInCart(id)]);
-       setData({
-         ...data,
-         cantidades: cantidadesn,
-         total: totaln,
-      }) */
-    }else{
-      /* setData({
-        ...data, 
-        id:[...data.id, id],
-        cantidades: [...data.cantidades, valueAdd],
-        items: [...data.items, product],
-        total: data.total + (product.amount * valueAdd)
-      }); */
-    }
-  }
-  
   return (
     <>
-      <Card key={key} style={{ width: "18rem", marginRight: 10 }} className="mt-3 text-center">
-        <Card.Img variant="top" src={'/assets/img/'+id+'.jpg'} alt="Foto del producto" />
+      <Card className="mt-3 text-center card border-0 shadow">
+        <Link to={`/detalle/${id}`}><Card.Img variant="top" src={'/assets/img/'+id+'.jpg'} alt="Foto del producto" /></Link>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Card.Text> $ {amount} </Card.Text>
+          <Card.Text> {formatCop.format(amount)} </Card.Text>
           <div className="agregar">
             <i className="icon-minus" onClick={restar}/>
             <input type="text" value={valueAdd} readOnly/>
             <i className="icon-plus" onClick={sumar}/>
           </div>
-          <Button variant="dark" className="mt-2" onClick={addToCart}>Agregar al carrito</Button>
+          <Button variant="dark" className="mt-2" onClick={() => addItem({id:id,name:name,quantity:valueAdd, total:(valueAdd*amount)})}>Agregar al carrito</Button>
         </Card.Body>
       </Card>
     </>

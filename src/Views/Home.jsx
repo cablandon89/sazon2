@@ -3,32 +3,24 @@ import React, {useState, useEffect} from 'react'
 //Components
 import Carousel from '../Components/Carousel';
 import CardItem from '../Components/CardItem';
-
 import LoaderPage from "../Components/Loader/LoaderPage";
+
+//utiles
+import { fetchApi } from '../Utiles/utiles';
 
 //CSS
 import "./HomeStyles.css";
 
-//Llamar a los productos
-
 
 const Home = () => {
-  const API = "https://backedsazon.herokuapp.com/products";
+  //State local para traer lo de la api
   const [data, setData] = useState([]);
-  const fetchapi = async () => {
-    try{
-      const response = await fetch(API);
-      const result = await response.json();
-      setData(result.filter(product => product.outstanding));
-    }catch (error){
-      console.log(error);
-    }
-  }
+
+  //UseEffect para la api
   useEffect(() => {
-    fetchapi();
+    fetchApi(setData);
   },[]);
   
-
   return (
     <div>
       <Carousel/>
@@ -39,7 +31,8 @@ const Home = () => {
           <div className="card-item-list">
             {
               data.map((product,index) =>
-                <CardItem key={index} id={product.id} name={product.name} amount={product.amount} stock={product.stock} img={product.img.url}  />
+                product.outstanding &&
+                  <CardItem key={index} id={product.id} name={product.name} amount={product.amount} stock={product.stock} />
               )
             }
           </div>

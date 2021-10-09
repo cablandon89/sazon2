@@ -4,7 +4,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Components
 import Home from './Views/Home';
 import Carta from './Views/Carta';
+import Detail from './Views/Detail';
 import Header from './Components/Header';
+import Cart from './Views/Cart';
 
 import LoaderPage from './Components/Loader/LoaderPage';
 
@@ -26,13 +28,21 @@ function App() {
           <Route path="/" exact>
             <Suspense delayMs={500} fallback={<LoaderPage />}>
               <Home />
-              
-              
             </Suspense>
           </Route>
           <Route path="/carta">
             <Suspense delayMs={500} fallback={<LoaderPage />}>
               <Carta/>
+            </Suspense>
+          </Route>
+          <Route path="/detalle/:id?">
+            <Suspense delayMs={500} fallback={<LoaderPage />}>  
+              <Detail/>
+            </Suspense>
+          </Route>
+          <Route path="/cart">
+            <Suspense delayMs={500} fallback={<LoaderPage />}>  
+              <Cart/>
             </Suspense>
           </Route>
           <Route path="*">

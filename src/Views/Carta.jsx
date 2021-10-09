@@ -1,22 +1,17 @@
 import React,{useState, useEffect} from 'react'
-
+//Components
 import CardItem from '../Components/CardItem';
 import LoaderPage from '../Components/Loader/LoaderPage';
+//utiles
+import { fetchApi } from '../Utiles/utiles';
 
 const Carta = () => {
-  const API = "https://backedsazon.herokuapp.com/products";
+  //State local para traer lo de la api
   const [data, setData] = useState([]);
-  const fetchapi = async () => {
-    try{
-      const response = await fetch(API);
-      const result = await response.json();
-      setData(result);
-    }catch (error){
-      console.log(error);
-    }
-  }
+
+  //UseEffect para la api
   useEffect(() => {
-    fetchapi();
+    fetchApi(setData);
   },[]);
   
   return (
