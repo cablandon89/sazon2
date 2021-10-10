@@ -1,21 +1,23 @@
-import {useState, useEffect, useContext} from 'react'
+import {useEffect,useState, useContext} from 'react'
 import {useParams} from 'react-router-dom';
 //Components
 import LoaderPage from '../Components/Loader/LoaderPage';
 //bootstrap
 import {Container, Card, Button, Col, Row} from 'react-bootstrap';
 //Utiles
-import { fetchApiItem, formatCop } from '../Utiles/utiles';
+import {formatCop } from '../Utiles/utiles';
 //Context
 import StoreContext from  '../Context/Store';
-
+import ProductsContext from  '../Context/Products';
 
 const Detail = () => {
   const {id} = useParams();
+  //Context con la info de los productos
+  const {products} = useContext(ProductsContext); 
+  const {store, addItem} = useContext(StoreContext);
 
   const [data,setData] = useState(null);
   const [valueAdd, setValueAdd] = useState(1);
-
   //Función restar item
   const restar = () => {
     if(valueAdd > 1){
@@ -29,12 +31,11 @@ const Detail = () => {
     } 
   }
 
-  const {store, addItem} = useContext(StoreContext);
-  //UseEffect para la api
   useEffect(() => {
-    fetchApiItem(setData,id);
-  },[]);
- 
+    setData((products.filter(product => (product.id === id))[0]));
+  },[products,id]);
+
+  
   return (
     <>
     {

@@ -1,36 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext} from 'react'
 
 //Components
 import Carousel from '../Components/Carousel';
 import CardItem from '../Components/CardItem';
 import LoaderPage from "../Components/Loader/LoaderPage";
 
-//utiles
-import { fetchApi } from '../Utiles/utiles';
-
 //CSS
 import "./HomeStyles.css";
 
+//Context
+import ProductsContext from  '../Context/Products';
 
 const Home = () => {
-  //State local para traer lo de la api
-  const [data, setData] = useState([]);
-
-  //UseEffect para la api
-  useEffect(() => {
-    fetchApi(setData);
-  },[]);
+  //Context con la info de los productos
+  const {products} = useContext(ProductsContext);
   
   return (
     <div>
       <Carousel/>
       {
-        data.length ?
+        products.length ?
         <>
           <h2>Productos destacados</h2>
           <div className="card-item-list">
             {
-              data.map((product,index) =>
+              products.map((product,index) =>
                 product.outstanding &&
                   <CardItem key={index} id={product.id} name={product.name} amount={product.amount} stock={product.stock} />
               )

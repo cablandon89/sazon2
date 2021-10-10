@@ -45,6 +45,7 @@ const Store = ({children}) => {
     setStore([]);
   }
 
+  
   useEffect(() =>{
     if(JSON.parse(localStorage.getItem('carrito'))){
       setStore(JSON.parse(localStorage.getItem('carrito')))
@@ -52,11 +53,11 @@ const Store = ({children}) => {
       setStore(localStorage.setItem("carrito",JSON.stringify([])))
     }
   },[]);
-
+  
   useEffect(() =>{
     localStorage.setItem("carrito",JSON.stringify(store));
   },[store])
-
+  
   
   
   const data= {store, addItem, updateItem, removeItem, emptyCart};

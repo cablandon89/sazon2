@@ -2,19 +2,19 @@ const API = "https://backedsazon.herokuapp.com/products";
 
 export const fetchApi = async (setData) => {
   try{
-    const response = await fetch(API);
-    const result = await response.json();
-    setData(result);
+    fetch(API)
+    .then(response => response.json())
+    .then(data => setData(data));
   }catch (error){
     console.log(error);
   }
 }
 
-export const fetchApiItem = async (setData,id) => {
+export const fetchApiItem = (setData,id) => {
   try{
-    const response = await fetch(API +"/"+id);
-    const result = await response.json();
-    setData(result);
+    fetch(API +"/"+id)
+    .then(response => response.json())
+    .then(data => setData(data));
   }catch (error){
     console.log(error);
   }
