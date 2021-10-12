@@ -4,46 +4,37 @@ import React, {useState, useContext, useEffect} from 'react'
 import { formatCop } from '../Utiles/utiles';
 //Context
 import StoreContext from  '../Context/Store';
-import ProductsContext from  '../Context/Products';
 
 const ItemListCart = ({i}) => {
   const {store, updateItem, removeItem} = useContext(StoreContext);
-  const {products } = useContext(ProductsContext);
+  const [product, setProduct] = useState(store[i])
   const [quantity,setQuantity] = useState(store[i].quantity)
   const [total,setTotal] = useState(store[i].total)
-  const [product,setProduct] = useState(null);
-  let amount = (product == null)?(store[i].total / store[i].quantity):product.amount;
-  let stock = (product == null)?store[i].quantity:product.stock;
+  
   
 
-  const sumar = () =>  {
-    if(quantity < stock){
+  const sumar = () => {
+    if(quantity < product.stock){
       setQuantity(quantity +1);
-    }
+    };
   }
 
   const restar = () => {
     if(quantity > 1){
-      setQuantity(quantity -1)         
+      setQuantity(quantity -1)   
     } 
   }
-
+  
   const actualizarstore = () => {
-    setTotal(quantity * amount);
-    let nobj = store[i];
-    nobj.quantity = quantity;
-    nobj.total = total;
-    updateItem(nobj,i);
+    setTotal(quantity * product.amount);
+    setProduct({...product, quantity: quantity, total: total})
+    updateItem(product,i);
   }
-
 
   useEffect(() => {
     actualizarstore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[quantity])
-
-  useEffect(() => {
-    setProduct((products.filter(product => (product.id === store[i].id))[0]));
-  });
 
   return (
     <tr className="align-middle text-nowrap">

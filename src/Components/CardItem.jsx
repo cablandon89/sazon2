@@ -39,7 +39,7 @@ const CardItem = ({id, name, amount, stock}) => {
             <input type="text" value={valueAdd} readOnly/>
             <i className="icon-plus" onClick={sumar}/>
           </div>
-          <Button variant="dark" className="mt-2" onClick={() => addItem({id:id,name:name,quantity:valueAdd, total:(valueAdd*amount)})}>Agregar al carrito</Button>
+          <Button variant="dark" className="mt-2" onClick={() => addItem({id:id,name:name,quantity:valueAdd, total:(valueAdd*amount), amount:amount, stock:stock})}>Agregar al carrito</Button>
         </Card.Body>
       </Card>
     </>

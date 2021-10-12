@@ -6,37 +6,30 @@ const Store = ({children}) => {
 
   const [store, setStore] = useState([]);
   
-  /* 
-    items:[],
-    id:[],
-    cantidades:[],
-    total:0
-  */
+ /* eslint eqeqeq: 0 */
   const addItem = (product) => {
     if(!store.some(item => item.id === product.id)){
-      setStore([...store, { id: product.id, name: product.name, quantity: product.quantity, total: product.total}]);
+      setStore([...store, { id: product.id, name: product.name, quantity: product.quantity, total: product.total, amount: product.amount, stock: product.stock}]);
     }else{
-      store.map((item,index) => {
-       if(item.id === product.id){
-         let quantity = item.quantity + product.quantity;
-         let total = item.total + product.total;
-         let nstore = [... store];
-         nstore[index].quantity = quantity;
-         nstore[index].total = total;
-         setStore(nstore);  
-       }
-      })
+      const index = store.findIndex(item => item.id == product.id);
+      let nstore = [...store];
+      let quantity = store[index].quantity + product.quantity;
+      let total = store[index].total + product.total;
+      nstore[index].quantity = quantity;
+      nstore[index].total = total;
+      setStore(nstore);  
     }
   }
 
   const updateItem = (product, index) => {
-    let nstore = [... store];
+    let nstore = [...store];
     nstore[index] = product;
+    nstore[index].total = product.amount*product.quantity;
     setStore(nstore);
   }
 
   const removeItem = (index) => {
-    let nstore = [... store];
+    let nstore = [...store];
     nstore.splice(index,1);
     setStore(nstore);
   }
