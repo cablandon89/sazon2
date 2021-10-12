@@ -28,7 +28,7 @@ const Header = () => {
               Carta
             </Link>
             <Link to="/carrito" className="nav-link link position-relative">
-              { (store.length > 0) && (
+              {(store.length > 0) && (
                 <span className="position-absolute top-5 start-100 p-2 translate-middle badge rounded-pill bg-primary">
                    <span className="visually-hidden">unread messages</span>
                 </span>

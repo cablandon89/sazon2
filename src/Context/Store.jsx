@@ -40,7 +40,7 @@ const Store = ({children}) => {
 
   
   useEffect(() =>{
-    if(JSON.parse(localStorage.getItem('carrito'))){
+    if(localStorage.getItem('carrito')){
       setStore(JSON.parse(localStorage.getItem('carrito')))
     }else{
       setStore(localStorage.setItem("carrito",JSON.stringify([])))

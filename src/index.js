@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+if(localStorage.getItem('carrito') == null){
+  localStorage.setItem("carrito","[]");
+}
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -10,9 +10,7 @@ const ItemListCart = ({i}) => {
   const [product, setProduct] = useState(store[i])
   const [quantity,setQuantity] = useState(store[i].quantity)
   const [total,setTotal] = useState(store[i].total)
-  
-  
-
+ 
   const sumar = () => {
     if(quantity < product.stock){
       setQuantity(quantity +1);
